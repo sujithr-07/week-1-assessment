@@ -217,3 +217,54 @@ plt.close()
 
 print("Histogram insight: The chart shows how employee salaries "
       "are distributed across salary ranges.")
+
+# SCATTER PLOT
+# Salary vs Employee ID
+
+plt.figure(figsize=(8, 5))
+
+plt.scatter(
+    df["id"],
+    df["salary"], 
+    label="Employees"
+)
+
+plt.title("Employee ID vs Salary")
+plt.xlabel("Employee ID")
+plt.ylabel("Salary")
+plt.legend()
+plt.tight_layout()
+plt.savefig("outputs/scatter_plot.png")
+plt.close()
+
+print("Scatter plot insight: The chart compares individual "
+      "employee salaries without assuming that employee ID "
+      "causes salary differences.")
+
+
+plt.figure(figsize=(8, 5))
+
+plt.plot(
+    department_summary["department"],
+    department_summary["average_salary"],
+    marker="o",
+    label="Average Salary"
+)
+
+
+#LINE CHART
+# Average salary by department
+plt.title("Average Salary Trend Across Departments")
+plt.xlabel("Department")
+plt.ylabel("Average Salary")
+plt.legend()
+plt.tight_layout()
+plt.savefig("outputs/line_chart.png")
+plt.close()
+
+print("Line chart insight: The line connects department average "
+      "salaries to make differences between departments visible.")
+
+
+print("\nAll tasks completed successfully!")
+print("Charts saved in the outputs folder.")
