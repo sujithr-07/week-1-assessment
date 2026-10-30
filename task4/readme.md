@@ -1,4 +1,4 @@
-# Week 1 Assessment: Employee Data Analysis - main branch
+# Week 1 Assessment: Employee Data Analysis 
 
 ## Overview
 
