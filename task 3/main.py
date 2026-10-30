@@ -52,15 +52,15 @@ print(df.describe())
 
 #loc
 print("\nusing loc:")
-print(df.loc[0:2, ['Name', 'Department', 'Salary']])
+print(df.loc[0:2, ["name", "department", "salary"]])
 
 #iloc
 print("\nusing iloc:")
 print(df.iloc[0:3, [0, 1, 2]])
 
 #filtering
-print("\nEmployees with Salary > 50000:")
-print(df[df['Salary'] > 50000])
+print("\nEmployees with salary > 50000:")
+print(df[df['salary'] > 50000])
 
 
 print("\n--------- DATA CLEANING ---------")
@@ -68,7 +68,7 @@ print("\n--------- DATA CLEANING ---------")
 print("original dataframe:\n", len(df))
 
 #count missing salaries
-print("\nMissing salaries:", df['Salary'].isna().sum())
+print("\nMissing salaries:", df['salary'].isna().sum())
 
 #count duplicate rows
 print("\nDuplicate rows:", df.duplicated().sum())
@@ -78,23 +78,23 @@ df=df.drop_duplicates().copy()
 
 #corrrect data types
 df["id"] = pd.to_numeric(df["id"], errors="raise").astype(int)
-df["Salary"] = pd.to_numeric(df["Salary"], errors="coerce")
+df["salary"] = pd.to_numeric(df["salary"], errors="coerce")
 
 #fill missing salaries with median
-median_salary = df['Salary'].median()
-df['Salary'] = df['Salary'].fillna(median_salary)
+median_salary = df['salary'].median()
+df['salary'] = df['salary'].fillna(median_salary)
 
 #standardize text columns
-df['Name'] = df['Name'].str.strip().str.title()
-df['Department'] = df['Department'].str.strip().str.title()
+df['name'] = df['name'].str.strip().str.title()
+df['department'] = df['department'].str.strip().str.title()
 df["city"] = df["city"].str.strip().str.title()
 
 #ensure salary is numeric
-df["salary"] = df["Salary"].astype(float)
+df["salary"] = df["salary"].astype(float)
 
 print("median salary used:", median_salary)
 print("\ncleaned dataframe:\n", len(df))
-print("\nMissing salaries after cleaning:", df['Salary'].isna().sum())
+print("\nMissing salaries after cleaning:", df['salary'].isna().sum())
 
 print("\ncleaned employee data:")
 print(df)
@@ -182,12 +182,12 @@ plt.figure(figsize=(8, 5))
 plt.bar(
     department_summary["department"],
     department_summary["average_salary"],
-    label="Average Salary"
+    label="Average salary"
 )
 
-plt.title("Average Salary by Department")
+plt.title("Average salary by Department")
 plt.xlabel("Department")
-plt.ylabel("Average Salary")
+plt.ylabel("Average salary")
 plt.legend()
 plt.tight_layout()
 plt.savefig("outputs/bar_chart.png")
@@ -197,7 +197,7 @@ print("Bar chart insight: The chart compares average salaries "
       "across departments.")
 
 # HISTOGRAM
-# Salary distribution
+# salary distribution
 plt.figure(figsize=(8, 5))
 
 plt.hist(
@@ -208,7 +208,7 @@ plt.hist(
 )
 
 plt.title("Distribution of Employee Salaries")
-plt.xlabel("Salary")
+plt.xlabel("salary")
 plt.ylabel("Number of Employees")
 plt.legend()
 plt.tight_layout()
@@ -219,7 +219,7 @@ print("Histogram insight: The chart shows how employee salaries "
       "are distributed across salary ranges.")
 
 # SCATTER PLOT
-# Salary vs Employee ID
+# salary vs Employee ID
 
 plt.figure(figsize=(8, 5))
 
@@ -229,9 +229,9 @@ plt.scatter(
     label="Employees"
 )
 
-plt.title("Employee ID vs Salary")
+plt.title("Employee ID vs salary")
 plt.xlabel("Employee ID")
-plt.ylabel("Salary")
+plt.ylabel("salary")
 plt.legend()
 plt.tight_layout()
 plt.savefig("outputs/scatter_plot.png")
@@ -248,15 +248,15 @@ plt.plot(
     department_summary["department"],
     department_summary["average_salary"],
     marker="o",
-    label="Average Salary"
+    label="Average salary"
 )
 
 
 #LINE CHART
 # Average salary by department
-plt.title("Average Salary Trend Across Departments")
+plt.title("Average salary Trend Across Departments")
 plt.xlabel("Department")
-plt.ylabel("Average Salary")
+plt.ylabel("Average salary")
 plt.legend()
 plt.tight_layout()
 plt.savefig("outputs/line_chart.png")
