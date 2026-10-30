@@ -171,3 +171,49 @@ departments_without_employees = outer_join.loc[
 
 print("\nDepartments with no employees:",
       departments_without_employees)
+
+
+print("\n========== CHARTS AND INSIGHTS ==========")
+
+# BAR CHART
+# Average salary by department
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    department_summary["department"],
+    department_summary["average_salary"],
+    label="Average Salary"
+)
+
+plt.title("Average Salary by Department")
+plt.xlabel("Department")
+plt.ylabel("Average Salary")
+plt.legend()
+plt.tight_layout()
+plt.savefig("outputs/bar_chart.png")
+plt.close()
+
+print("Bar chart insight: The chart compares average salaries "
+      "across departments.")
+
+# HISTOGRAM
+# Salary distribution
+plt.figure(figsize=(8, 5))
+
+plt.hist(
+    df["salary"],
+    bins=5,
+    edgecolor="black",
+    label="Employee Salaries"
+)
+
+plt.title("Distribution of Employee Salaries")
+plt.xlabel("Salary")
+plt.ylabel("Number of Employees")
+plt.legend()
+plt.tight_layout()
+plt.savefig("outputs/histogram.png")
+plt.close()
+
+print("Histogram insight: The chart shows how employee salaries "
+      "are distributed across salary ranges.")
