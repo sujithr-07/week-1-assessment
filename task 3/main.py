@@ -92,7 +92,7 @@ df["city"] = df["city"].str.strip().str.title()
 #ensure salary is numeric
 df["salary"] = df["Salary"].astype(float)
 
-print("median salary used:", median_salary)\
+print("median salary used:", median_salary)
 print("\ncleaned dataframe:\n", len(df))
 print("\nMissing salaries after cleaning:", df['Salary'].isna().sum())
 
@@ -101,3 +101,73 @@ print(df)
 
 
 
+print("\n---------- DEPARTMENT AGGREGATION ----------")
+
+department_summary = (
+    df.groupby("department")
+      .agg(
+          headcount=("id", "count"),
+          average_salary=("salary", "mean"),
+          maximum_salary=("salary", "max")
+      )
+      .reset_index()
+)
+
+print(department_summary)
+
+print("\nHeadcount:")
+for _, row in department_summary.iterrows():
+    print(f"{row['department']}: {row['headcount']}")
+
+
+print("\n---------- DATA MERGING ----------")
+
+departments = pd.read_csv("departments.csv")
+
+# Correct department text
+departments["department"] = (
+    departments["department"].str.strip().str.title()
+)
+
+# INNER JOIN
+inner_join = pd.merge(
+    df,
+    departments,
+    on="department",
+    how="inner"
+)
+
+print("\nINNER JOIN:")
+print(inner_join[["name", "department", "head", "budget"]])
+
+# LEFT JOIN
+left_join = pd.merge(
+    df,
+    departments,
+    on="department",
+    how="left"
+)
+
+print("\nLEFT JOIN:")
+print(left_join[["name", "department", "head", "budget"]])
+
+# OUTER JOIN
+outer_join = pd.merge(
+    department_summary,
+    departments,
+    on="department",
+    how="outer",
+    indicator=True
+)
+
+print("\nOUTER JOIN:")
+print(outer_join)
+
+# Departments without employees
+departments_without_employees = outer_join.loc[
+    outer_join["_merge"] == "right_only",
+    "department"
+].tolist()
+
+print("\nDepartments with no employees:",
+      departments_without_employees)
